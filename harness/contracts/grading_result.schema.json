@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Incident Grading Result",
+  "type": "object",
+  "required": ["status", "final_grade", "metrics", "evidence", "policy_version"],
+  "properties": {
+    "status": {"enum": ["computed", "pending", "blocked"]},
+    "final_grade": {"type": ["string", "null"]},
+    "metrics": {"type": "array", "items": {"type": "object"}},
+    "evidence": {"type": "array", "items": {"type": "object"}},
+    "policy_version": {"type": "string", "minLength": 1},
+    "l0s": {"type": ["object", "null"]},
+    "uncertainties": {"type": "array", "items": {"type": "string"}}
+  },
+  "additionalProperties": true
+}

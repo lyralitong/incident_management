@@ -1,0 +1,42 @@
+version: 1
+router:
+  name: incident-post-management
+  default_timezone: Asia/Shanghai
+  clarification_policy: ask_minimum_missing_fields
+  execution_order:
+    - question-answering
+    - incident-grading
+    - incident-attribution
+    - incident-communication
+    - incident-review
+    - improvement-reminder
+routes:
+  - id: question-answering
+    skill: skills/问题答疑/SKILL.md
+    mode: conversational
+    side_effects: []
+  - id: incident-grading
+    skill: skills/事故定级/SKILL.md
+    harness: skills/事故定级/harness
+    mode: workflow
+    required_inputs: [business, incident_time]
+    optional_inputs: [impact_metrics]
+    output_contract: harness/contracts/grading_result.schema.json
+    side_effects: [create_local_evidence_file]
+  - id: incident-attribution
+    skill: skills/事故定责/SKILL.md
+    mode: conversational
+    side_effects: []
+  - id: incident-communication
+    skill: skills/事故通报/SKILL.md
+    mode: draft
+    side_effects: []
+  - id: incident-review
+    skill: skills/事故复盘/SKILL.md
+    mode: conversational
+    side_effects: [create_draft_document]
+  - id: improvement-reminder
+    skill: skills/改进项提醒/SKILL.md
+    mode: scheduled_workflow
+    side_effects: [send_direct_message]
+    approval: required_unless_pre_authorized

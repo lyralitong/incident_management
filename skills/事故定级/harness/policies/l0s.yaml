@@ -1,0 +1,17 @@
+version: 1
+policy_version: 2026-11-12
+name: l0s-business-unavailable-duration
+unit: minute
+applicability:
+  factors: [core_metric]
+  core_grades: [P1, P2, P3]
+  responsibility: confirmed_non_third_party
+rules:
+  P1: "T"
+  P2_high_drop: "T"
+  P2_low_drop: "T * r * 2"
+  P3: "T * r"
+thresholds:
+  P2_high_drop_ratio: 0.5
+rounding: display_2_decimals_calculate_full_precision
+unknown_responsibility: pending

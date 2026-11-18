@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Incident Post Management Run Manifest",
+  "type": "object",
+  "required": ["run_id", "route_id", "status", "execution_date", "timezone", "policy_versions"],
+  "properties": {
+    "run_id": {"type": "string", "minLength": 1},
+    "route_id": {"type": "string", "minLength": 1},
+    "status": {"enum": ["RECEIVED", "NORMALIZED", "EVIDENCE_READY", "COMPUTED", "VALIDATED", "DRAFTED", "APPROVAL_REQUIRED", "EXECUTED", "VERIFIED", "NEEDS_INPUT", "BLOCKED", "FAILED", "CANCELLED"]},
+    "execution_date": {"type": "string", "format": "date"},
+    "timezone": {"type": "string", "minLength": 1},
+    "policy_versions": {"type": "object", "additionalProperties": {"type": "string"}},
+    "input_hash": {"type": "string"},
+    "artifacts": {"type": "array", "items": {"type": "string"}},
+    "errors": {"type": "array", "items": {"type": "object"}}
+  },
+  "additionalProperties": true
+}

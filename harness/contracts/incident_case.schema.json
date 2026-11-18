@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Incident Case",
+  "type": "object",
+  "required": ["business", "incident_time", "timezone"],
+  "properties": {
+    "incident_id": {"type": "string"},
+    "business": {"type": "string", "minLength": 1},
+    "incident_time": {"type": "string", "minLength": 1},
+    "timezone": {"const": "Asia/Shanghai"},
+    "impact_metrics": {"type": "array", "items": {"type": "string"}},
+    "source": {"enum": ["user", "system", "document", "mixed"]}
+  },
+  "additionalProperties": true
+}
